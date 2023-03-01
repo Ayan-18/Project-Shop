@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product add</title>
+</head>
+<body>
+Adding new product
+<form action="/admin/add" method="get">
+    <label>
+        <select name="category">
+            <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+    </label>
+    <div><input type="submit" value="Выбрать"/></div>
+</form>
+<br>
+
+<div th:each="product:${products}">
+    <p>Категория: <span th:text="${product.getCategory().getName()}"></span></p>
+    <p>Название: <span th:text="${product.name}"></span></p>
+    <p>Стоимость: <span th:text="${product.price}"></span></p>
+    <p>Характеристики:</p>
+    <div th:each="value:${product.values}">
+        <p> - <span th:text="${value.option.name}"></span>:
+            <span th:text="${value.value}">:</span>
+        </p>
+    </div>
+    <form action="/admin/edit" target="_blank" method="get">
+        <input type="hidden" name="productId" th:value="${product.id}">
+        <button type="submit">Изменить</button>
+    </form>
+    <br>
+</div>
+
+
+</body>
+</html>

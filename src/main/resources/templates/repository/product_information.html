@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>More Information about Product</title>
+</head>
+<body>
+
+<p>Категория: <span th:text="${product.getCategory().getName()}"></span></p>
+<p>Название: <span th:text="${product.name}"></span></p>
+<p>Стоимость: <span th:text="${product.price}"></span></p>
+<p>Характеристики:</p>
+<div th:each="value:${product.values}">
+    <p> - <span th:text="${value.option.name}"></span>:
+        <span th:text="${value.value}">:</span>
+    </p>
+</div>
+<p> Средняя оценка: <span th:text="${@reviewService.productRating(product.id)}"/></p>
+<br>
+
+<div th:each="review:${reviews}">
+    <p> Имя пользователя <span th:text="${review.user.name}"></span></p>
+    <p> Отзыв: <span th:text="${review.review}"></span></p>
+    <p> Оценка: <span th:text="${review.rating}"/></p>
+    <p> Дата: <span th:text="${review.date_of_write}"/></p>
+    <form th:if="${@userService.userAdminOrModeratorRole()}" th:action="@{/admin/review_edit}" method="post">
+        <input type="hidden" name="productId" th:value="${review.product.id}">
+        <input type="hidden" name="reviewId" th:value="${review.id}">
+        <input type="hidden" name="published" value="false">
+        <button type="submit">Убрать</button>
+    </form>
+    <br>
+</div>
+
+<br>
+
+<form th:if="${@reviewService.ifReviewExist(product.id)}" th:action="@{/products/info}" method="post">
+    <label>
+        <select name="rateReview">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </label>
+    <label>
+        <input type="text" name="newReview" placeholder="Напишите отзыв">
+    </label>
+
+    <input type="hidden" name="productId" th:value="${product.id}">
+    <button type="submit">Оставить отзыв</button>
+</form>
+
+</body>
+</html>

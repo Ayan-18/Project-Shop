@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<p> Hello <span th:text="${user.name}"></span></p>
+<form action="/order" target="_blank">
+    <button> Оформить заказ</button>
+</form>
+<br>
+<form action="/cart/deleteall" method="get">
+    <button type="submit">Удалить корзину</button>
+</form>
+<div th:each="cartItem:${cartItemList}">
+    <p>Название продукта: <span th:text="${cartItem.product.name}"></span></p>
+    <p>Стоимость: <span th:text="${cartItem.product.price}"></span> тенге/шт</p>
+    <p>Количество: <span th:text="${cartItem.amount}"></span>
+        <br>
+    <form action="/cart/minus" method="get">
+        <button type="submit" name="productId" th:value="${cartItem.product.id}"> -1</button>
+    </form>
+    <form action="/cart/add" method="get">
+        <button type="submit" name="productId" th:value="${cartItem.product.id}"> +1</button>
+    </form>
+
+    </p>
+    <p>Цена: <span th:text="${cartItem.product.price*cartItem.amount}"></span> тенге </p>
+    <form action="/cart/delete" method="get">
+        <button type="submit" name="productId" th:value="${cartItem.product.id}"> Удалить продукт</button>
+    </form>
+</div>
+
+</body>
+</html>

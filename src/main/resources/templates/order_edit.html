@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order edit</title>
+</head>
+<body>
+<form th:action="@{/admin/order_edit}" method="post">
+    <div th:each="order:${orders}">
+        <p> Пользователь: <span th:text="${order.user.name}"/></p>
+        <p>Улица: <span th:text="${order.street}"/></p>
+        <p>Дом: <span th:text="${order.building}"/></p>
+        <p>Квартира: <span th:text="${order.flat}"/></p>
+        <p>Дата заказа: <span th:text="${order.dateOfReg}"/></p>
+        <p>Статус: <span th:text="${order.status.getDisplayStatus()}"/>
+            <label>
+                <select name="status">
+                    <option value="INSTOCK">На складе</option>
+                    <option value="DELIVERY">Доставка</option>
+                    <option value="DELIVERED">Доставлен</option>
+                </select>
+            </label>
+        </p>
+        <input type="hidden" name="id" th:value="${order.id}">
+        <button type="submit">Изменить</button>
+        <br>
+    </div>
+</form>
+
+</body>
+</html>

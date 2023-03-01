@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review edit</title>
+</head>
+<body>
+<form th:action="@{/admin/review_edit}" method="post">
+    <div th:each="review:${reviews}">
+        <p> Имя пользователя <span th:text="${review.user.name}"></span></p>
+        <p> Отзыв: <span th:text="${review.review}"></span></p>
+        <p> Оценка: <span th:text="${review.rating}"/></p>
+        <p> Дата: <span th:text="${review.date_of_write}"/></p>
+        <p> Продукт: <span th:text="${review.product.name}"/></p>
+        <p> Опубликован: <span th:text="${review.published}"/></p>
+        <input type="hidden" name="reviewId" th:value="${review.id}">
+        <input type="hidden" name="published" value="true">
+        <button type="submit">Опубликовать</button>
+    </div>
+</form>
+
+
+</body>
+</html>

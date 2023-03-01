@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>More info about order</title>
+</head>
+<body>
+
+<p> Пользователь: <span th:text="${order.user.name}"/></p>
+<p>Улица: <span th:text="${order.street}"/></p>
+<p>Дом: <span th:text="${order.building}"/></p>
+<p>Квартира: <span th:text="${order.flat}"/></p>
+<p>Дата заказа: <span th:text="${order.dateOfReg}"/></p>
+<p>Статус: <span th:text="${order.status.getDisplayStatus()}"/></p>
+<p> Общая цена заказа <span th:text="${@orderService.totalPrice(order.id)}"/></p>
+<div th:each="orderProduct:${order.orderProducts}">
+    <br>
+    <p>Продукт <span th:text="${orderProduct.product.name}"/></p>
+    <p>Цена <span th:text="${orderProduct.product.price}"/></p>
+    <p>Количество <span th:text="${orderProduct.amount}"/></p>
+    <p>Общая цена <span th:text="${orderProduct.amount*orderProduct.product.price}"/></p>
+</div>
+
+</body>
+</html>

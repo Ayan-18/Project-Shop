@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+-<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+<form th:action="@{/order}" method="post">
+    <p>Улица <label><input type="text" name="street" placeholder="Улица"/></label></p>
+    <p>Дом <label><input type="text" name="building" placeholder="Дом"/></label></p>
+    <p> Квартира <label><input type="number" name="flat" placeholder="Квартира"/></label></p>
+
+    <button type="submit">Оформить заказ</button>
+</form>
+</body>
+</html>

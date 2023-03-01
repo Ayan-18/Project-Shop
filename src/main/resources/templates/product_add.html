@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product add</title>
+</head>
+<body>
+Adding new product
+Вы выбрали категорию: <span th:text="${category.name}"></span>
+<br>
+<form th:action="@{/admin/add}" method="post">
+    <input type="hidden" name="category" th:value="${category.id}">
+    <div><label>Name: <input type="text" name="name"></label></div>
+    <div><label>Price: <input type="number" name="price"></label></div>
+    <br>
+    <div th:each="option:${category.options}">
+        <input type="hidden" name="optionId" th:value="${option.id}">
+        <span th:text="${option.name}" th:value="${option.id}"></span>:
+        <label>
+            <input type="text" name="valueName">
+        </label>
+    </div>
+    <button type="submit">Создать</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product list practice</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<br>
+<form action="/cart" target="_blank">
+    <button>Корзина</button>
+</form>
+<br>
+<form action="/products" method="get">
+
+    <select name="categoryId">
+        <option value="0">Все продукты</option>
+        <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+    <input type="number" name="minPrice" placeholder="Min price">
+    <input type="number" name="maxPrice" placeholder="Max price">
+    <button type="submit">Отфильтровать</button>
+</form>
+
+<div th:each="product :${products}">
+    <p>Название: <span th:text="${product.name}"></span></p>
+    <p>Стоимость: <span th:text="${product.price}"></span></p>
+    <form th:action="@{/cart/add}" method="get">
+        <button type="submit" name="productId" th:value="${product.id}">Добавить в корзину</button>
+    </form>
+    <form action="/products/info" target="_blank" method="get">
+        <input type="hidden" name="productId" th:value="${product.id}">
+        <button type="submit">Подробнее</button>
+    </form>
+    <br>
+</div>
+</body>
+</html>

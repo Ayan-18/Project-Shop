@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product edit</title>
+</head>
+<body>
+<form th:action="@{/admin/edit}" method="post">
+    <input type="hidden" name="productId" th:value="${product.id}">
+    <p>Категория: <span th:text="${product.getCategory().getName()}"></span></p>
+    <p>Название: <span th:text="${product.name}"></span>
+        <label>
+            <input type="text" name="name" placeholder="Изменить название"/>
+        </label>
+    </p>
+    <p>Стоимость: <span th:text="${product.price}"></span>
+        <label>
+            <input type="number" name="price" placeholder="Изменить стоимость">
+        </label>
+    </p>
+    <p>Характеристики:</p>
+    <div th:each="option:${category.options}">
+        <input type="hidden" name="optionId" th:value="${option.id}">
+        <p> - <span th:text="${option.name}"></span>:
+            <span th:text="${@productService.findValueByProductAndOption(product.id,option.id)}"/>
+            <label>
+                <input type="text" name="valueName"
+                       th:placeholder=" ${option.name}"/>
+            </label>
+        </p>
+    </div>
+    <button type="submit">Изменить</button>
+</form>
+
+
+</body>
+</html>
